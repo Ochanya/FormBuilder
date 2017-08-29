@@ -97,35 +97,35 @@ let formData = [
 
 // -------- Your Code Goes Below this Line --------
   let forms = document.querySelector("#fields");
-    for( let i = 0; i < formData.length; i++ ){
+    for( let i = 0; i<formData.length; i++ ){
 
       if (formData[i].type === "select"){
+        let select = document.createElement("select");
+        forms.appendChild(select);
+        let option = document.createElement("option");
+        option.innerText = formData[i].label;
+        select.appendChild(option);
 
-
-        for( let i = 0; i < options.length; i++ ){
-          let select = document.createElement("select");
-          let options = document.createElement("options");
-
-          options.textContent = options[i].label;
-          options.setAttribute("value",options[i].value);
-
-          select.appendChild(options);
-          forms.appendChild(select);
+        for(let j=0; j<formData[i].options.length; j++){
+           let options = document.createElement("option");
+           options.innerText = formData[i].options[j].label;
+           options.setAttribute("value", formData[i].options[j].value)
+           select.appendChild(options);
         }
-      }
-      else{
 
-        for( let i = 0; i < formData.length; i++ ){
+      }else if (formData[i].type === "textarea"){
+        let textarea = document.createElement("textarea");
+        textarea.setAttribute("placeholder", formData[i].label);
+        forms.appendChild(textarea);
+      }else{
 
           let input = document.createElement("input");
           input.setAttribute("type", formData[i].type);
           input.setAttribute("placeholder", formData[i].label);
           input.setAttribute("id", formData[i].id)
           input.setAttribute("icon", formData[i].icon)
-          input.setAttribute("options", formData[i].options)
-
+          
           forms.appendChild(input);
 
         }
       }
-    }
